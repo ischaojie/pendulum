@@ -37,6 +37,7 @@ from .helpers import week_ends_at
 from .helpers import week_starts_at
 from .parser import parse
 from .period import Period
+from .testing.traveller import Traveller
 from .time import Time
 from .tz import POST_TRANSITION
 from .tz import PRE_TRANSITION
@@ -292,3 +293,13 @@ def period(start: DateTime, end: DateTime, absolute: bool = False) -> Period:
     Create a Period instance.
     """
     return Period(start, end, absolute=absolute)
+
+
+# Testing
+
+_traveller = Traveller(DateTime)
+
+freeze = _traveller.freeze
+travel = _traveller.travel
+travel_to = _traveller.travel_to
+travel_back = _traveller.travel_back

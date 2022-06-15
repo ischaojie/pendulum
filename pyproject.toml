@@ -29,12 +29,12 @@ python = "^3.7"
 python-dateutil = "^2.6"
 "backports.zoneinfo" = {version = "^0.2.1", python = ">=3.7,<3.9"}
 tzdata = ">=2020.1"
+time-machine = { version = "^2.6.0", markers = "implementation_name != 'pypy'" }
 
 [tool.poetry.group.test.dependencies]
 pytest = "^6.2.5"
 pytest-cov = "^2.5"
 pytz = ">=2018.3"
-time-machine = "^2.4.0"
 
 [tool.poetry.group.doc.dependencies]
 mkdocs = "^1.0"
