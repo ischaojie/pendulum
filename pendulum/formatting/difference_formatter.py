@@ -133,7 +133,7 @@ class DifferenceFormatter:
                 if not trans:
                     # No special rule
                     time = locale.get(
-                        "translations.units.{}.{}".format(unit, locale.plural(count))
+                        f"translations.units.{unit}.{locale.plural(count)}"
                     ).format(count)
                 else:
                     time = trans[locale.plural(count)].format(count)
@@ -146,6 +146,6 @@ class DifferenceFormatter:
 
                 return locale.get(key).format(time)
 
-        key += ".{}".format(locale.plural(count))
+        key += f".{locale.plural(count)}"
 
         return locale.get(key).format(count)

@@ -200,7 +200,7 @@ translations = {{}}
         to_py = _LambdaCompiler().compile
         result = ["lambda n: "]
         for tag, ast in PluralRule.parse(rule).abstract:
-            result.append("'{}' if {} else ".format(tag, to_py(ast)))
+            result.append(f"'{tag}' if {to_py(ast)} else ")
         result.append("'other'")
         return "".join(result)
 
