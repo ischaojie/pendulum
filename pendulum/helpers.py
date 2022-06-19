@@ -48,7 +48,6 @@ except ImportError:
     from ._extensions.helpers import timestamp  # noqa
     from ._extensions.helpers import week_day  # noqa
 
-
 difference_formatter = DifferenceFormatter()
 
 
@@ -171,27 +170,6 @@ def _sign(x):
 
 
 # Global helpers
-
-
-@contextmanager
-def test(mock):  # type: (pendulum.DateTime) -> Iterator[None]
-    set_test_now(mock)
-    try:
-        yield
-    finally:
-        set_test_now()
-
-
-def set_test_now(test_now=None):  # type: (Optional[pendulum.DateTime]) -> None
-    pendulum._TEST_NOW = test_now
-
-
-def get_test_now():  # type: () -> Optional[pendulum.DateTime]
-    return pendulum._TEST_NOW
-
-
-def has_test_now():  # type: () -> bool
-    return pendulum._TEST_NOW is not None
 
 
 def locale(name):  # type: (str) -> Locale

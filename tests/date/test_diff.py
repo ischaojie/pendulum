@@ -127,13 +127,13 @@ def test_diff_for_humans_now_and_nearly_month(today):
 
 
 def test_diff_for_humans_now_and_month():
-    with pendulum.test(pendulum.datetime(2016, 3, 1)):
+    with pendulum.travel_to(pendulum.datetime(2016, 3, 1)):
         today = pendulum.today().date()
 
         assert "4 weeks ago" == today.subtract(weeks=4).diff_for_humans()
         assert "1 month ago" == today.subtract(months=1).diff_for_humans()
 
-    with pendulum.test(pendulum.datetime(2017, 2, 28)):
+    with pendulum.travel_to(pendulum.datetime(2017, 2, 28)):
         today = pendulum.today().date()
 
         assert "1 month ago" == today.subtract(weeks=4).diff_for_humans()
@@ -180,23 +180,23 @@ def test_diff_for_humans_now_and_nearly_future_month(today):
 
 
 def test_diff_for_humans_now_and_future_month():
-    with pendulum.test(pendulum.datetime(2016, 3, 1)):
+    with pendulum.travel_to(pendulum.datetime(2016, 3, 1)):
         today = pendulum.today().date()
 
         assert "in 4 weeks" == today.add(weeks=4).diff_for_humans()
         assert "in 1 month" == today.add(months=1).diff_for_humans()
 
-    with pendulum.test(pendulum.datetime(2017, 3, 31)):
+    with pendulum.travel_to(pendulum.datetime(2017, 3, 31)):
         today = pendulum.today().date()
 
         assert "in 1 month" == today.add(months=1).diff_for_humans()
 
-    with pendulum.test(pendulum.datetime(2017, 4, 30)):
+    with pendulum.travel_to(pendulum.datetime(2017, 4, 30)):
         today = pendulum.today().date()
 
         assert "in 1 month" == today.add(months=1).diff_for_humans()
 
-    with pendulum.test(pendulum.datetime(2017, 1, 31)):
+    with pendulum.travel_to(pendulum.datetime(2017, 1, 31)):
         today = pendulum.today().date()
 
         assert "in 1 month" == today.add(weeks=4).diff_for_humans()
@@ -243,23 +243,23 @@ def test_diff_for_humans_other_and_nearly_month(today):
 
 
 def test_diff_for_humans_other_and_month():
-    with pendulum.test(pendulum.datetime(2016, 3, 1)):
+    with pendulum.travel_to(pendulum.datetime(2016, 3, 1)):
         today = pendulum.today().date()
 
         assert "4 weeks before" == today.diff_for_humans(today.add(weeks=4))
         assert "1 month before" == today.diff_for_humans(today.add(months=1))
 
-    with pendulum.test(pendulum.datetime(2017, 3, 31)):
+    with pendulum.travel_to(pendulum.datetime(2017, 3, 31)):
         today = pendulum.today().date()
 
         assert "1 month before" == today.diff_for_humans(today.add(months=1))
 
-    with pendulum.test(pendulum.datetime(2017, 4, 30)):
+    with pendulum.travel_to(pendulum.datetime(2017, 4, 30)):
         today = pendulum.today().date()
 
         assert "1 month before" == today.diff_for_humans(today.add(months=1))
 
-    with pendulum.test(pendulum.datetime(2017, 1, 31)):
+    with pendulum.travel_to(pendulum.datetime(2017, 1, 31)):
         today = pendulum.today().date()
 
         assert "1 month before" == today.diff_for_humans(today.add(weeks=4))
@@ -306,13 +306,13 @@ def test_diff_for_humans_other_and_nearly_future_month(today):
 
 
 def test_diff_for_humans_other_and_future_month():
-    with pendulum.test(pendulum.datetime(2016, 3, 1)):
+    with pendulum.travel_to(pendulum.datetime(2016, 3, 1)):
         today = pendulum.today().date()
 
         assert "4 weeks after" == today.diff_for_humans(today.subtract(weeks=4))
         assert "1 month after" == today.diff_for_humans(today.subtract(months=1))
 
-    with pendulum.test(pendulum.datetime(2017, 2, 28)):
+    with pendulum.travel_to(pendulum.datetime(2017, 2, 28)):
         today = pendulum.today().date()
 
         assert "1 month after" == today.diff_for_humans(today.subtract(weeks=4))

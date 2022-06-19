@@ -27,12 +27,8 @@ from .duration import Duration
 from .formatting import Formatter
 from .helpers import format_diff
 from .helpers import get_locale
-from .helpers import get_test_now
-from .helpers import has_test_now
 from .helpers import locale
 from .helpers import set_locale
-from .helpers import set_test_now
-from .helpers import test
 from .helpers import week_ends_at
 from .helpers import week_starts_at
 from .parser import parse
@@ -203,6 +199,7 @@ def now(tz: Optional[Union[str, Timezone]] = None) -> DateTime:
     """
     Get a DateTime instance for the current date and time.
     """
+    print(DateTime.now(tz))
     return DateTime.now(tz)
 
 
@@ -236,7 +233,7 @@ def from_format(
     """
     Creates a DateTime instance from a specific format.
     """
-    parts = _formatter.parse(string, fmt, now(), locale=locale)
+    parts = _formatter.parse(string, fmt, now(tz=tz), locale=locale)
     if parts["tz"] is None:
         parts["tz"] = tz
 

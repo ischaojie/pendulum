@@ -30,8 +30,6 @@ from .constants import YEARS_PER_DECADE
 from .date import Date
 from .exceptions import PendulumException
 from .helpers import add_duration
-from .helpers import get_test_now
-from .helpers import has_test_now
 from .period import Period
 from .time import Time
 from .tz import UTC
@@ -42,7 +40,6 @@ from .utils._compat import PY38
 
 
 class DateTime(datetime.datetime, Date):
-
     EPOCH: Optional["DateTime"] = None
 
     # Formats
@@ -119,15 +116,6 @@ class DateTime(datetime.datetime, Date):
         """
         Get a DateTime instance for the current date and time.
         """
-        if has_test_now():
-            test_instance = get_test_now()
-            _tz = pendulum._safe_timezone(tz)
-
-            if tz is not None and _tz != test_instance.timezone:
-                test_instance = test_instance.in_tz(_tz)
-
-            return test_instance
-
         if tz is None or tz == "local":
             dt = datetime.datetime.now(local_timezone())
         elif tz is UTC or tz == "UTC":
