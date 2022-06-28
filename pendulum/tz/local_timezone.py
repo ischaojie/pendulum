@@ -4,8 +4,10 @@ import sys
 
 from contextlib import contextmanager
 from typing import Iterator
+from typing import List
 from typing import Optional
 from typing import Union
+from typing import cast
 
 from .exceptions import InvalidTimezone
 from .timezone import FixedTimezone
@@ -13,13 +15,12 @@ from .timezone import Timezone
 
 
 try:
-    import _winreg as winreg
+    import _winreg as winreg  # type: ignore
 except ImportError:
     try:
-        import winreg
+        import winreg  # type: ignore
     except ImportError:
-        winreg = None
-
+        winreg = None  # type: ignore
 
 _mock_local_timezone = None
 _local_timezone = None
@@ -150,7 +151,7 @@ def _get_darwin_timezone() -> Timezone:
     return Timezone(tzname)
 
 
-def _get_unix_timezone(_root="/"):  # type: (str) -> Timezone
+def _get_unix_timezone(_root: str = "/") -> Timezone:
     tzenv = os.environ.get("TZ")
     if tzenv:
         try:
@@ -163,12 +164,12 @@ def _get_unix_timezone(_root="/"):  # type: (str) -> Timezone
     tzpath = os.path.join(_root, "etc/timezone")
     if os.path.isfile(tzpath):
         with open(tzpath, "rb") as tzfile:
-            data = tzfile.read()
+            tzfile_data = tzfile.read()
 
             # Issue #3 was that /etc/timezone was a zoneinfo file.
             # That's a misconfiguration, but we need to handle it gracefully:
-            if data[:5] != "TZif2":
-                etctz = data.strip().decode()
+            if tzfile_data[:5] != "TZif2":
+                etctz = tzfile_data.strip().decode()
                 # Get rid of host definitions and comments:
                 if " " in etctz:
                     etctz, dummy = etctz.split(" ", 1)
@@ -203,15 +204,15 @@ def _get_unix_timezone(_root="/"):  # type: (str) -> Timezone
             if match is not None:
                 # Some setting existed
                 line = line[match.end() :]
-                etctz = line[: end_re.search(line).start()]
+                etctz = line[: cast(re.Match, end_re.search(line)).start()]
 
                 parts = list(reversed(etctz.replace(" ", "_").split(os.path.sep)))
-                tzpath = []
+                tzpath_parts: List[str] = []
                 while parts:
-                    tzpath.insert(0, parts.pop(0))
+                    tzpath_parts.insert(0, parts.pop(0))
 
                     try:
-                        return Timezone(os.path.join(*tzpath))
+                        return Timezone(os.path.join(*tzpath_parts))
                     except InvalidTimezone:
                         pass
 
@@ -222,11 +223,11 @@ def _get_unix_timezone(_root="/"):  # type: (str) -> Timezone
         parts = list(
             reversed(os.path.realpath(tzpath).replace(" ", "_").split(os.path.sep))
         )
-        tzpath = []
+        tzpath_parts: List[str] = []  # type: ignore[no-redef]
         while parts:
-            tzpath.insert(0, parts.pop(0))
+            tzpath_parts.insert(0, parts.pop(0))
             try:
-                return Timezone(os.path.join(*tzpath))
+                return Timezone(os.path.join(*tzpath_parts))
             except InvalidTimezone:
                 pass
 

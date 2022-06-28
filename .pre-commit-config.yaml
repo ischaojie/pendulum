@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/psf/black
-    rev: 21.9b0
+    rev: 22.3.0
     hooks:
       - id: black
 
@@ -17,10 +17,10 @@ repos:
         exclude: ^.*/?setup\.py$
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.29.0
+    rev: v2.34.0
     hooks:
       - id: pyupgrade
-        args: [ --py37-plus ]
+        args: [ --py37-plus, --keep-runtime-typing ]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1

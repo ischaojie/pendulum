@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import re
 
@@ -13,15 +15,15 @@ class Locale:
     Represent a specific locale.
     """
 
-    _cache = {}
+    _cache: Dict[str, Locale] = {}
 
     def __init__(self, locale: str, data: Any) -> None:
-        self._locale = locale
-        self._data = data
-        self._key_cache = {}
+        self._locale: str = locale
+        self._data: Any = data
+        self._key_cache: Dict[str, str] = {}
 
     @classmethod
-    def load(cls, locale: Union[str, "Locale"]) -> "Locale":
+    def load(cls, locale: Union[str, Locale]) -> Locale:
         if isinstance(locale, Locale):
             return locale
 

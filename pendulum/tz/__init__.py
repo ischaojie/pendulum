@@ -1,8 +1,9 @@
 import os
 
+from typing import Dict
 from typing import Union
 
-import tzdata
+import tzdata  # type: ignore
 
 from .local_timezone import get_local_timezone
 from .local_timezone import set_local_timezone
@@ -18,8 +19,7 @@ TRANSITION_ERROR = "error"
 
 _timezones = None
 
-
-_tz_cache = {}
+_tz_cache: Dict[int, FixedTimezone] = {}
 
 
 def timezones():
@@ -58,7 +58,7 @@ def fixed_timezone(offset: int) -> FixedTimezone:
     return tz
 
 
-def local_timezone() -> Timezone:
+def local_timezone() -> Union[Timezone, FixedTimezone]:
     """
     Return the local timezone.
     """
